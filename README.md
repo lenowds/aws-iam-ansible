@@ -1,5 +1,12 @@
 # ANSIBLE HERO
+
+*Aqueles que mais resolvem problemas, são chamados de heróis.
+
+
+
 ![](https://media.giphy.com/media/ek4CUx2FONgHaMz9V5/giphy.gif)
+
+
 
 
 
