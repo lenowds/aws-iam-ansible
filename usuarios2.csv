@@ -1,0 +1,5 @@
+usuarios;grupo;senha;politica
+adolfo.carlos;DBA;Trocar1@Senha2;AmazonRDSFullAccess
+aguinaldo.balsemao;RedesAdmin;Trocar1@Senha2;AmazonVPCFullAccess
+alda.lage;CloudAdmin;Trocar1@Senha2;AdministratorAccess
+amelia.penteado;LinuxAdmin;Trocar1@Senha2;AmazonEC2FullAccess

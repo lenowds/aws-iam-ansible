@@ -1,0 +1,67 @@
+---
+- name: Importacao de usuarios da minha infraestrutura on premises para AWS
+  hosts: localhost
+
+  vars:
+    access_key: "{{ lookup('env', 'AWS_ACCESS_KEY') }}"
+    secret_key: "{{ lookup('env', 'AWS_SECRET_KEY') }}" 
+
+  tasks:
+    - block:
+      - name: Validacao das variaveis de ambiente
+        fail:
+          msg: "Variavel de ambiente {{item}} ausente"
+        when: item not in ansible_env
+        with_items:
+          - "AWS_ACCESS_KEY"
+          - "AWS_SECRET_KEY"
+
+      # Leitura do arquivo CSV contendo os usuario para importacao
+
+      - name: Lista de usuarios
+        community.general.read_csv:
+          path: usuarios2.csv
+          fieldnames: usuarios,grupo,senha,politica
+          delimiter: ';'
+        register: users
+        delegate_to: localhost
+
+      - name: AWS My Account 
+        amazon.aws.aws_caller_info:
+        register: aws_myaccount
+
+      # Criacao da Politica MFA
+      - name: Criacao da Politica MFA
+        community.aws.iam_managed_policy:
+          policy_name: "EnforceMFAPolicy"
+          policy: "{{ lookup('file', 'enforce-mfa.json') }}"
+          state: present
+
+      # tarefa para criacao dos grupos
+      - name: Criacao dos Grupos
+        community.aws.iam_group:
+          aws_access_key: "{{ access_key }}"
+          aws_secret_key: "{{ secret_key }}"
+          name: "{{ item.grupo }}"
+          managed_policies:
+            - arn:aws:iam::{{aws_myaccount.account}}:policy/EnforceMFAPolicy
+            - arn:aws:iam::aws:policy/{{item.politica}}
+          state: present
+        when: item.grupo != "grupo"
+        loop: "{{ users.list }}"
+        register: criacaogrupo
+      
+      # tarefa para criacao de usuarios
+      - name: Criar usuario
+        community.aws.iam:
+          aws_access_key: "{{ access_key }}"
+          aws_secret_key: "{{ secret_key }}"
+          iam_type: user
+          name: "{{ item.usuarios }}"
+          state: present
+          password: "{{ item.senha }}"
+          access_key_state: create
+          groups: "{{ item.grupo }}"
+        register: criacaousuario
+        when: item.usuarios != "usuarios"
+        loop: "{{ users.list }}"
