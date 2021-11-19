@@ -59,7 +59,7 @@
           iam_type: user
           name: "{{ item.usuarios }}"
           state: present
-          password: "{{ item.senha }}"
+          password: "{{ lookup('password', 'credentials/password length=12 chars=ascii_letters,digits') | password_hash('sha512') }}"
           access_key_state: create
           groups: "{{ item.grupo }}"
         register: criacaousuario
