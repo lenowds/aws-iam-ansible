@@ -32,6 +32,17 @@ Com certeza ter uma conta na AWS, estar autenticado e dentro da [AWS Console](ht
 
 Criar um usuário com perfil de administrador e guardar a ACCESS KEY e SECRET ACCESS KEY. Como será aplicado o playbook na console da AWS, o usuário será do tipo  programático e acesso na console.
 
+Carregar as variáveis de ambiente AWS_ACCESS_KEY e AWS_SECRET_KEY passando as credenciais do usuário criado. Essa instrução deverá ser executada no terminal antes de executar o ansible playbook.
+
+```
+export AWS_ACCESS_KEY=SUA ACCESS KEY
+export AWS_SECRET_KEY=SUA SECRET ACCESS KEY
+```
+
+Caso não esteja configurado as variáveis de ambiente ocorrerá o seguinte erro: 
+
+![image-20211122213334161](image-20211122213334161.png)
+
 
 
 <u>**python >= 2.6**</u>
