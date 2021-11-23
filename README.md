@@ -85,7 +85,7 @@ ansible-playbook aws-users-import.yml
 
 
 
-Sugestões são bem vindas, e pra quem quiser me adicione no [linkedin](https://www.linkedin.com/in/leniel-dos-santos-7813a924/) e vamos batar um papo. 
+Sugestões são bem vindas, e pra quem quiser me adicione no [linkedin](https://www.linkedin.com/in/leniel-dos-santos-7813a924/) e vamos bater um papo. 
 
 
 
