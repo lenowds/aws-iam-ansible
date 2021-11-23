@@ -41,7 +41,7 @@ export AWS_SECRET_KEY=SUA SECRET ACCESS KEY
 
 Caso não esteja configurado as variáveis de ambiente ocorrerá o seguinte erro: 
 
-![image-20211122213334161](image-20211122213334161.png)
+![image-20211122213334161](image-20211122213334161.PNG)
 
 
 
